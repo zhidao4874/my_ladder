@@ -131,9 +131,7 @@ rules:
 
 
 此时一个最基础的自建节点 + Clash Verge就搭建完成了。
-
-
-
+![clashverge](./imgs/clashverge1.png)
 
 
 
