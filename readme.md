@@ -2,10 +2,11 @@
 
 
 ## 购买阿里云VPS
-
 登录阿里云，购买**轻量应用服务器**
 中国区阿里云官网链接：https://home.console.aliyun.com/home/dashboard/ProductAndService
+![clashverge](./imgs/aliyun1.png)
 购买至少1GB内存的服务器，否则可能出现内存太小无法安装依赖的问题，大概34元/月。
+![clashverge](./imgs/aliyun2.png)
 
 系统镜像：任意选择，推荐ubuntu 22.03，太新的版本内核可能跟v2ray不兼容。
 应用镜像：宝塔Linux面板，直接web页面访问os，比较方便。
@@ -78,6 +79,7 @@ service v2ray restart
 # 查看运行状态
 service v2ray status
 ```
+![clashverge](./imgs/v2ray.png)
 
 ## Clash Verge客户端配置
 下载Clash Verge：https://github.com/clash-verge-rev/clash-verge-rev/tags
@@ -124,8 +126,9 @@ rules:
   - MATCH,节点选择
 ```
 
+在Clash Verge的订阅界面，新建订阅，类型选择local，把上面的yaml文件导入即可。
 ![clashverge](./imgs/clashverge.png)
-在Clash Verge的订阅界面，新建订阅，把上面的yaml文件导入即可。
+
 
 此时一个最基础的自建节点 + Clash Verge就搭建完成了。
 
