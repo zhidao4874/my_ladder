@@ -43,17 +43,26 @@ bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/
     "inbounds": [
         {
             "listen": "0.0.0.0",
-            "port": 8282,        # 修改为没有被占用的ip
+            "port": 443,
             "protocol": "vmess",
             "settings": {
                 "clients": [
                     {
-                        "id": "xxx"   # 一个uuid，可以用uuidgen工具直接生成，后面要用
+                        "id": "xxxx"
                     }
                 ]
             },
             "streamSettings": {
-                "network": "tcp"      # 最基本的配置
+                "network": "tcp",
+                "security": "tls",
+                "tlsSettings": {
+                        "certificates": [
+                                {
+                                        "certificateFile": "/usr/local/etc/v2ray/v2ray.crt",
+                                        "keyFile": "/usr/local/etc/v2ray/v2ray.key"
+                                }
+                        ]
+                }
             }
         }
     ],
@@ -98,13 +107,16 @@ external-controller: 127.0.0.1:9090
 
 # 1. 节点信息
 proxies:
-  - name: "我的自建VMess"       # 名字任意
-    type: vmess                # 如果是shadowsocks，则写ss
-    server: 192.168.0.0        # 这是我们自建节点的ip
-    port: 8282                 # 这是v2ray配置文件中指定的ip
-    uuid: ""                   # 替换为自建节点的v2ray配置文件中的clients.id
+  - name: "我的自建VMess"
+    type: vmess
+    server: www.xxxx.com          # 1. 服务器IP替换为你的TLS域名
+    port: 443                     # 2. 确保端口与服务端TLS监听端口一致
+    uuid: "xxx"
     alterId: 0
-    cipher: auto               # vmess可以使用auto，如果是ss，则必须配置好加密算法和密码。
+    cipher: auto
+    tls: true                      # 3. 启用TLS（对应V2Ray的security=tls）
+    skip-cert-verify: true         # 4. 跳过证书验证（自建证书时建议开启）
+    servername: www.xxxx.com        # 5. 指定TLS 域名
 
 # 配置模板可以参考：https://github.com/MetaCubeX/mihomo/blob/Meta/docs/config.yaml
 
